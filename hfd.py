@@ -44,12 +44,13 @@ Options:
   --dataset       (Optional) Flag to indicate downloading a dataset.
   --local-dir     (Optional) Directory path to store the downloaded data.
   --revision      (Optional) Model/Dataset revision to download (default: main).
+  --enable_mirror (Optional) Download from hf-mirror.com.
 Example:
   python hfd.py gpt2
-  python hfd.py bigscience/bloom-560m --exclude *.safetensors
+  python hfd.py bigscience/bloom-560m --exclude *.safetensors --enable_mirror
   python hfd.py meta-llama/Llama-2-7b --hf_username myuser --hf_token mytoken -x 4
   python hfd.py lavita/medical-qa-shared-task-v1-toy --dataset
-  python hfd.py bartowski/Phi-3.5-mini-instruct-exl2 --revision 5_0
+  python hfd.py bartowski/Phi-3.5-mini-instruct-exl2 --revision 5_0 --local_dir your_local_path
 """
     print(help_text)
     sys.exit(1)
@@ -197,7 +198,7 @@ def main():
     parser.add_argument('-x', type=lambda x: validate_number(x, 'threads (-x)', 10), default=3, help='Number of threads')
     parser.add_argument('-j', type=lambda x: validate_number(x, 'concurrent downloads (-j)', 10), default=4, help='Number of concurrent downloads')
     parser.add_argument('--dataset', action='store_true', help='Flag to download dataset')
-    parser.add_argument('--local-dir', help='Directory to store downloaded data')
+    parser.add_argument('--local_dir', help='Directory to store downloaded data')
     parser.add_argument('--revision', default='main', help='Model/Dataset revision')
     parser.add_argument('--enable_mirror', action='store_true')
     parser.add_argument('--max_retries', type=int, default=1000000)
